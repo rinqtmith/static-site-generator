@@ -40,6 +40,29 @@ def extract_markdown_links(text):
     return matches
 
 
+def split_nodes_image(old_nodes):
+    new_nodes = []
+    for node in old_nodes:
+        text = node.text
+        image_matches = extract_markdown_images(node.text)
+        for image in image_matches:
+            new_text_list = text.split(f"![{image[0]}]({image[1]})", 1)
+            text = new_text_list[1]
+            if new_text_list[0] != "":
+                new_nodes.append(TextNode(new_text_list[0], TextType.TEXT))
+            new_nodes.append(TextNode(image[0], TextType.IMAGE, image[1]))
+        if text != "":
+            new_nodes.append(TextNode(text, TextType.TEXT))
+
+    return new_nodes
+
+
+def split_nodes_link(old_nodes):
+    new_nodes = []
+
+    return new_nodes
+
+
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
     for node in old_nodes:
