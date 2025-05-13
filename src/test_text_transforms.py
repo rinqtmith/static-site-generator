@@ -1,6 +1,6 @@
 import unittest
 
-from main import (
+from text_transforms import (
     extract_markdown_images,
     extract_markdown_links,
     split_nodes_delimiter,
