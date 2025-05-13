@@ -1,3 +1,5 @@
+import re
+
 from htmlnode import LeafNode
 from textnode import TextNode, TextType
 
@@ -26,6 +28,16 @@ def text_node_to_html_node(text_node):
             )
         case _:
             raise ValueError(f"Unknown text type: {text_node.text_type}")
+
+
+def extract_markdown_images(text):
+    matches = re.findall(r"!\[(.*?)\]\((.*?)\)", text)
+    return matches
+
+
+def extract_markdown_links(text):
+    matches = re.findall(r"\[(.*?)\]\((.*?)\)", text)
+    return matches
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
