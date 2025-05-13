@@ -28,6 +28,28 @@ def text_node_to_html_node(text_node):
             raise ValueError(f"Unknown text type: {text_node.text_type}")
 
 
+def split_nodes_delimiter(old_nodes, delimiter, text_type):
+    new_nodes = []
+    for node in old_nodes:
+        if node.text_type != TextType.TEXT:
+            new_nodes.append(node)
+        else:
+            new_lines = node.text.split(delimiter)
+            if len(new_lines) < 3:
+                raise Exception("invalid Markdown")
+            new_list = list(
+                map(
+                    lambda x: TextNode(x, text_type)
+                    if new_lines.index(x) % 2 != 0
+                    else TextNode(x, TextType.TEXT),
+                    new_lines,
+                )
+            )
+            new_nodes.extend(new_list)
+
+    return new_nodes
+
+
 def main():
     first_node = TextNode("This is a test", TextType.LINK, "https://www.boot.dev")
     print(first_node)
