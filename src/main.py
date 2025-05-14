@@ -7,12 +7,12 @@ from generate import generate_pages_recursive
 
 
 dir_path_static = "static"
-dir_path_public = "public"
+dir_path_public = "docs"
 from_path = "content/index.md"
-dest_path = "public/index.html"
+dest_path = "docs/index.html"
 template_path = "template.html"
 dir_path_content = "content"
-dest_dir_path = "public"
+dest_dir_path = "docs"
 
 
 def main():
