@@ -19,19 +19,22 @@ def main():
     try:
         basepath = sys.argv[1]
     except IndexError:
-        basepath = "./"
+        basepath = "/"
 
     print("Deleting public directory...")
-    if os.path.exists(f"{basepath}{dir_path_public}"):
-        shutil.rmtree(f"{basepath}{dir_path_public}")
+    if os.path.exists(f".{basepath}{dir_path_public}"):
+        shutil.rmtree(f".{basepath}{dir_path_public}")
 
     print("Copying static files to public directory...")
-    copy_files_recursive(f"{basepath}{dir_path_static}", f"{basepath}{dir_path_public}")
+    copy_files_recursive(
+        f".{basepath}{dir_path_static}", f".{basepath}{dir_path_public}"
+    )
 
     generate_pages_recursive(
-        f"{basepath}{dir_path_content}",
-        f"{basepath}{template_path}",
-        f"{basepath}{dest_dir_path}",
+        f".{basepath}{dir_path_content}",
+        f".{basepath}{template_path}",
+        f".{basepath}{dest_dir_path}",
+        basepath,
     )
 
 
