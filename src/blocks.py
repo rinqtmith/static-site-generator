@@ -22,6 +22,14 @@ def markdown_to_blocks(md):
     return blocks
 
 
+def extract_title(md):
+    lines = md.split("\n")
+    for line in lines:
+        if line.startswith("#"):
+            return line[1:].strip()
+    raise Exception("No title found in markdown")
+
+
 def block_to_blocktype(block):
     if block.startswith("#"):
         return BlockType.HEADING

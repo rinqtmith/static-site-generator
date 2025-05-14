@@ -3,6 +3,7 @@ import unittest
 from blocks import (
     BlockType,
     block_to_blocktype,
+    extract_title,
     markdown_to_blocks,
     markdown_to_html_node,
 )
@@ -28,6 +29,25 @@ This is the same paragraph on a new line
                 "- This is a list\n- with items",
             ],
         )
+
+    def test_extract_title(self):
+        md = """
+# This is a ttitle
+This is a paragraph
+This is another paragraph
+This is the same paragraph on a new line
+"""
+        title = extract_title(md)
+        self.assertEqual(title, "This is a ttitle")
+
+    def test_extract_title_no_title(self):
+        md = """
+This is a paragraph
+This is another paragraph
+This is the same paragraph on a new line
+"""
+        with self.assertRaises(Exception):
+            extract_title(md)
 
     def test_heading(self):
         self.assertEqual(block_to_blocktype("# Heading"), BlockType.HEADING)
